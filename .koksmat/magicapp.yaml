@@ -1,0 +1,159 @@
+name: apps
+type: magicservice
+namespace: apps
+organisation: magicbutton
+magicappversion: v0.0.1
+description: A simple app to manage users, groups and memberships
+
+baseattributes:
+  urlrecord:
+    &recordAttributesWithURL # Id + Created + Updated + CreatedBy + UpdatedBy are implicit
+    - name: tenant
+      type: string
+      required: true
+    - name: name
+      type: string
+      required: true
+    - name: description
+      type: string
+      required: false
+    - name: url
+      type: string
+      required: true
+  record:
+    &recordAttributes # Id + Created + Updated + CreatedBy + UpdatedBy are implicit
+    - name: tenant
+      type: string
+      required: true
+    - name: name
+      type: string
+      required: true
+    - name: description
+      type: string
+      required: false
+
+entities:
+  person: &person
+    name: person
+    description: person
+    baselineattributes: *recordAttributes
+    additionalattributes:
+      - name: unique_person_id
+        type: string
+        required: true
+      - name: displayname
+        type: string
+        required: true
+      - name: email
+        type: string
+        required: true
+
+  spacetype: &spacetype
+    name: spacetype
+    description: spacetype
+    baselineattributes: *recordAttributes
+    additionalattributes:
+
+  space: &space
+    name: space
+    description: space
+    baselineattributes: *recordAttributes
+    additionalattributes:
+      - name: unique_space_id
+        type: string
+        required: true
+      - name: spacetype
+        type: reference
+        entity: *spacetype
+        required: true
+      - name: primaryowner
+        type: reference
+        entity: *person
+        required: true
+      - name: secondaryowner
+        type: reference
+        entity: *person
+        required: false
+      - name: accountable
+        type: reference
+        entity: *person
+        required: false
+
+models:
+  itemMethods: &itemMethods
+    - name: read
+      description: Read a single item
+      parameters:
+        - name: id
+          description: The id of the item
+          type: int
+          required: true
+      returns:
+        type: object
+
+    - name: create
+      description: Create a new item
+      parameters:
+        - name: item
+          description: The item to create
+          type: object
+          required: true
+      returns:
+        type: object
+    - name: update
+      description: Update an existing item
+      parameters:
+        - name: item
+          description: The item to update
+          type: object
+          required: true
+      returns:
+        type: object
+
+    - name: delete
+      description: Delete an existing item
+      parameters:
+        - name: id
+          description: The id of the item
+          type: int
+          required: true
+      returns:
+        type: void
+    - name: search
+      description: Search for items
+      parameters:
+        - name: query
+          description: The search query
+          type: string
+          required: true
+
+      returns:
+        type: page
+
+services:
+  - name: person
+    description: Manage persons
+    entity:
+      type: record
+      model: person
+      objectname: Person
+      entity: *person
+    methods: *itemMethods
+
+  - name: spacetype
+    description: Manage space types
+    entity:
+      type: record
+      model: spacetype
+      objectname: SpaceType
+      entity: *spacetype
+    methods: *itemMethods
+
+  - name: space
+    description: Manage spaces
+    entity:
+      type: record
+      model: space
+      objectname: Space
+      entity: *space
+    methods: *itemMethods
