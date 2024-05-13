@@ -7,6 +7,7 @@ import AppTopMenu from "./components/apptopmenu";
 import { MagicboxContext } from "@/koksmat/magicbox-context";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Tracer from "@/koksmat/components/tracer";
 
 export default function Layout(props: { children: any }) {
   const { children } = props;
@@ -55,7 +56,9 @@ export default function Layout(props: { children: any }) {
         <div className="grow bg-slate-50 dark:bg-slate-800"></div>
         <div className="container p-8">{children}</div>
         <div className="grow  bg-slate-50  dark:bg-slate-800"></div>
-        <div className="hidden md:block"></div>
+        <div className="hidden md:block">
+          {magicbox.showTracer && <Tracer />}
+        </div>
       </div>
       <div className=""></div>
     </AppProvider>

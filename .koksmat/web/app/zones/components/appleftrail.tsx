@@ -91,7 +91,7 @@ export default function AppLeftRail(props: {}) {
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="/apps"
+                href="/zones"
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
               >
                 <Home className="h-5 w-5" />
@@ -154,7 +154,7 @@ export default function AppLeftRail(props: {}) {
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href="/apps/settings"
+                href="/zones/settings"
                 className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
               >
                 <Settings className="h-5 w-5" />

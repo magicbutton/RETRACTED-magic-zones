@@ -1,14 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import {
   MagicboxContextType,
   MagicboxContext,
   Session,
   User,
   AuthSource,
+  ServiceCallLogEntry,
 } from "./magicbox-context";
 import { IPublicClientApplication, PopupRequest } from "@azure/msal-browser";
+import { MagicRequest } from "./magicservices";
+import { Result } from "./httphelper";
+import { set } from "date-fns";
 
 type Props = {
   children?: React.ReactNode;
@@ -22,7 +26,10 @@ export const MagicboxProvider = ({ children }: Props) => {
   const [authSource, setauthSource] = useState<AuthSource>("");
   const [pca, setpca] = useState<IPublicClientApplication>();
   const [transactionId, settransactionId] = useState("");
-
+  const [servicecalllog, setservicecalllog] = useState<ServiceCallLogEntry[]>(
+    []
+  );
+  const [showtracer, setshowtracer] = useState(false);
   const magicbox: MagicboxContextType = {
     session,
     version,
@@ -81,7 +88,26 @@ export const MagicboxProvider = ({ children }: Props) => {
       settransactionId(id);
     },
     transactionId,
+    servicecalllog,
+    logServiceCall: function (request: ServiceCallLogEntry): void {
+      setservicecalllog([request, ...servicecalllog]);
+    },
+    clearServiceCallLog: function (): void {
+      setservicecalllog([]);
+    },
+    showTracer: showtracer,
+    setShowTracer: function (showTracer: boolean): void {
+      localStorage.setItem("showtracer", showTracer ? "true" : "false");
+      setshowtracer(showTracer);
+    },
   };
+
+  useEffect(() => {
+    const showtracer = localStorage.getItem("showtracer");
+    if (showtracer) {
+      setshowtracer(showtracer === "true");
+    }
+  }, []);
   return (
     <MagicboxContext.Provider value={magicbox}>
       {children}

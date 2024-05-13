@@ -8,12 +8,9 @@ import { MagicboxContext } from "./magicbox-context";
 
 export const version = 1;
 
-export function useService<T>(
+export function useSQLSelect<T>(
   servicename: string,
-  args: string[],
-  body: string,
-  timeout: number,
-  transactionid: string,
+  sql: string,
 
   setran?: (ran: boolean) => void,
   setresult?: (result: Result<T>) => void,
@@ -26,27 +23,22 @@ export function useService<T>(
   const magicbox = useContext(MagicboxContext);
 
   useEffect(() => {
+    //debugger;
     const load = async () => {
       if (didRun) return;
-
+      setisLoading(true);
       seterror("");
       const calledTimestamp = new Date();
 
-      const result = await run<T>(
-        servicename,
-        args,
-        body,
-        timeout,
-        transactionid
-      );
+      const result = await run<T>(servicename, ["select", sql], "", 600, "x");
       magicbox.logServiceCall({
         calledTimestamp,
         responedTimestamp: new Date(),
         request: {
-          args,
-          body,
+          args: ["select", sql],
+          body: "",
           channel: servicename,
-          timeout,
+          timeout: 600,
         },
         servicename,
         response: result,
@@ -67,10 +59,10 @@ export function useService<T>(
         setdata(result.data);
       }
     };
-    if (transactionid && servicename && timeout && args) {
+    if (servicename && sql) {
       load();
     }
-  }, [servicename, timeout, args, transactionid]);
+  }, [servicename, sql]);
 
   return {
     data,

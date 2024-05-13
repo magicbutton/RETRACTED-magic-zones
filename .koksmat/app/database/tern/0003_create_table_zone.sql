@@ -9,7 +9,7 @@ keep: false
 
 
 
-CREATE TABLE public.space
+CREATE TABLE public.zone
 (
     id SERIAL PRIMARY KEY,
     created_at timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -18,8 +18,8 @@ CREATE TABLE public.space
     ,tenant character varying COLLATE pg_catalog."default"  NOT NULL
     ,name character varying COLLATE pg_catalog."default"  NOT NULL
     ,description character varying COLLATE pg_catalog."default" 
-    ,unique_space_id character varying COLLATE pg_catalog."default"  NOT NULL
-    ,spacetype_id int   NOT NULL
+    ,unique_zone_id character varying COLLATE pg_catalog."default"  NOT NULL
+    ,zonetype_id int   NOT NULL
     ,primaryowner_id int   NOT NULL
     ,secondaryowner_id int  
     ,accountable_id int  
@@ -27,22 +27,22 @@ CREATE TABLE public.space
 
 );
 
-                ALTER TABLE IF EXISTS public.space
-                ADD FOREIGN KEY (spacetype_id)
-                REFERENCES public.spacetype (id) MATCH SIMPLE
+                ALTER TABLE IF EXISTS public.zone
+                ADD FOREIGN KEY (zonetype_id)
+                REFERENCES public.zonetype (id) MATCH SIMPLE
                 ON UPDATE NO ACTION
                 ON DELETE NO ACTION
-                NOT VALID;                ALTER TABLE IF EXISTS public.space
+                NOT VALID;                ALTER TABLE IF EXISTS public.zone
                 ADD FOREIGN KEY (primaryowner_id)
                 REFERENCES public.person (id) MATCH SIMPLE
                 ON UPDATE NO ACTION
                 ON DELETE NO ACTION
-                NOT VALID;                ALTER TABLE IF EXISTS public.space
+                NOT VALID;                ALTER TABLE IF EXISTS public.zone
                 ADD FOREIGN KEY (secondaryowner_id)
                 REFERENCES public.person (id) MATCH SIMPLE
                 ON UPDATE NO ACTION
                 ON DELETE NO ACTION
-                NOT VALID;                ALTER TABLE IF EXISTS public.space
+                NOT VALID;                ALTER TABLE IF EXISTS public.zone
                 ADD FOREIGN KEY (accountable_id)
                 REFERENCES public.person (id) MATCH SIMPLE
                 ON UPDATE NO ACTION
@@ -52,5 +52,5 @@ CREATE TABLE public.space
 
 ---- create above / drop below ----
 
-DROP TABLE public.space;
+DROP TABLE public.zone;
 

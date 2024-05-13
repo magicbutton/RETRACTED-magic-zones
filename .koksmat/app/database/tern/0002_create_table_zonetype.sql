@@ -9,7 +9,7 @@ keep: false
 
 
 
-CREATE TABLE public.spacetype
+CREATE TABLE public.zonetype
 (
     id SERIAL PRIMARY KEY,
     created_at timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -27,5 +27,5 @@ CREATE TABLE public.spacetype
 
 ---- create above / drop below ----
 
-DROP TABLE public.spacetype;
+DROP TABLE public.zonetype;
 

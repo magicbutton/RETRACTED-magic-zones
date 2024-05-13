@@ -14,6 +14,6 @@ import (
 
 func RegisterServiceEndpoints(root micro.Group) {
     root.AddEndpoint("person", micro.HandlerFunc(services.HandlePersonRequests))
-        root.AddEndpoint("spacetype", micro.HandlerFunc(services.HandleSpaceTypeRequests))
-        root.AddEndpoint("space", micro.HandlerFunc(services.HandleSpaceRequests))
+        root.AddEndpoint("zonetype", micro.HandlerFunc(services.HandlezoneTypeRequests))
+        root.AddEndpoint("zone", micro.HandlerFunc(services.HandlezoneRequests))
     }
