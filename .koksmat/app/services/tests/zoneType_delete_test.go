@@ -14,10 +14,10 @@ keep: false
         "github.com/stretchr/testify/assert"
     )
     
-    func TestzoneTypedelete(t *testing.T) {
+    func TestZoneTypedelete(t *testing.T) {
                 // noma4.1.1
         
-        err := zonetype.zoneTypeDelete(-1)
+        err := zonetype.ZoneTypeDelete(-1)
         if err != nil {
             t.Errorf("Error %s", err)
         }

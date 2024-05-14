@@ -14,9 +14,9 @@ keep: false
         "github.com/stretchr/testify/assert"
     )
     
-    func Testzonesearch(t *testing.T) {
+    func TestZonesearch(t *testing.T) {
                     
-            result,err := zone.zoneSearch(".")
+            result,err := zone.ZoneSearch(".")
             if err != nil {
                 t.Errorf("Error %s", err)
             }

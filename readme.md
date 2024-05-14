@@ -1,8 +1,8 @@
 ---
-title: Applications
+title: Magic
 description: Supporting the "App" domain
 ---
 
-# Magic Apps
+# Magic
 
-The `magic-zones` application deals which
+The `magic-zones` application - in short **`magic`** - is the overarching app used for controlling zones.

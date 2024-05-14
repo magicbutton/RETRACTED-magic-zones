@@ -45,7 +45,7 @@ export default function Layout(props: { children: any }) {
         <div className="hidden md:block w-14 "></div>
         <div className="p-2 text-white font-extralight text-2xl  md:text-4xl">
           <Link href="/apps">
-            apps.intra.nexigroup.com {/* <AppTopMenu /> */}
+            magic.intra.nexigroup.com {/* <AppTopMenu /> */}
           </Link>
         </div>
       </div>

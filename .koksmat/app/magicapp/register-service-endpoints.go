@@ -1,8 +1,8 @@
-/* 
+/*
 File have been automatically created. To prevent the file from getting overwritten
 set the Front Matter property ´keep´ to ´true´ syntax for the code snippet
 ---
-keep: false
+keep: true
 ---
 */
 package magicapp
@@ -13,7 +13,11 @@ import (
 )
 
 func RegisterServiceEndpoints(root micro.Group) {
-    root.AddEndpoint("person", micro.HandlerFunc(services.HandlePersonRequests))
-        root.AddEndpoint("zonetype", micro.HandlerFunc(services.HandlezoneTypeRequests))
-        root.AddEndpoint("zone", micro.HandlerFunc(services.HandlezoneRequests))
-    }
+	root.AddEndpoint("app", micro.HandlerFunc(services.HandleAppRequests))
+
+	root.AddEndpoint("person", micro.HandlerFunc(services.HandlePersonRequests))
+	root.AddEndpoint("zonetype", micro.HandlerFunc(services.HandleZoneTypeRequests))
+	root.AddEndpoint("zone", micro.HandlerFunc(services.HandleZoneRequests))
+	root.AddEndpoint("jobtype", micro.HandlerFunc(services.HandleJobTypeRequests))
+	root.AddEndpoint("job", micro.HandlerFunc(services.HandleJobRequests))
+}

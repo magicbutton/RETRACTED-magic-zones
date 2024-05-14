@@ -14,9 +14,9 @@ keep: false
         "github.com/stretchr/testify/assert"
     )
     
-    func TestzoneTyperead(t *testing.T) {
+    func TestZoneTyperead(t *testing.T) {
                     
-            result,err := zonetype.zoneTypeRead(-1)
+            result,err := zonetype.ZoneTypeRead(-1)
             if err != nil {
                 t.Errorf("Error %s", err)
             }

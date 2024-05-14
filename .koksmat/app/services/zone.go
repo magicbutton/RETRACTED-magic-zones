@@ -18,7 +18,7 @@ import (
 	"github.com/nats-io/nats.go/micro"
 )
 
-func HandlezoneRequests(req micro.Request) {
+func HandleZoneRequests(req micro.Request) {
 
     rawRequest := string(req.Data())
 	if rawRequest == "ping" {
@@ -47,10 +47,10 @@ if (len(payload.Args) < 2) {
 
 
     
-    result,err := zone.zoneRead(StrToInt(payload.Args[1]))
+    result,err := zone.ZoneRead(StrToInt(payload.Args[1]))
     if (err != nil) {
         log.Println("Error", err)
-        ServiceResponseError(req, fmt.Sprintf("Error calling zoneRead: %s", err))
+        ServiceResponseError(req, fmt.Sprintf("Error calling ZoneRead: %s", err))
 
 
         return
@@ -68,7 +68,7 @@ if (len(payload.Args) < 2) {
 
 
                 // transformer v1
-            object := zonemodel.zone{}
+            object := zonemodel.Zone{}
             body := ""
 
             json.Unmarshal([]byte(payload.Args[1]), &body)
@@ -80,10 +80,10 @@ if (len(payload.Args) < 2) {
                 return
             }
                      
-    result,err := zone.zoneCreate(object)
+    result,err := zone.ZoneCreate(object)
     if (err != nil) {
         log.Println("Error", err)
-        ServiceResponseError(req, fmt.Sprintf("Error calling zoneCreate: %s", err))
+        ServiceResponseError(req, fmt.Sprintf("Error calling ZoneCreate: %s", err))
 
 
         return
@@ -101,7 +101,7 @@ if (len(payload.Args) < 2) {
 
 
                 // transformer v1
-            object := zonemodel.zone{}
+            object := zonemodel.Zone{}
             body := ""
 
             json.Unmarshal([]byte(payload.Args[1]), &body)
@@ -113,10 +113,10 @@ if (len(payload.Args) < 2) {
                 return
             }
                      
-    result,err := zone.zoneUpdate(object)
+    result,err := zone.ZoneUpdate(object)
     if (err != nil) {
         log.Println("Error", err)
-        ServiceResponseError(req, fmt.Sprintf("Error calling zoneUpdate: %s", err))
+        ServiceResponseError(req, fmt.Sprintf("Error calling ZoneUpdate: %s", err))
 
 
         return
@@ -133,10 +133,10 @@ if (len(payload.Args) < 2) {
 }
 
 
-            err :=  zone.zoneDelete(StrToInt(payload.Args[1]))
+            err :=  zone.ZoneDelete(StrToInt(payload.Args[1]))
             if (err != nil) {
                 log.Println("Error", err)
-                ServiceResponseError(req, fmt.Sprintf("Error calling zoneDelete: %s", err))
+                ServiceResponseError(req, fmt.Sprintf("Error calling ZoneDelete: %s", err))
 
 
                 return
@@ -153,10 +153,10 @@ if (len(payload.Args) < 2) {
 
 
     
-    result,err := zone.zoneSearch(payload.Args[1])
+    result,err := zone.ZoneSearch(payload.Args[1])
     if (err != nil) {
         log.Println("Error", err)
-        ServiceResponseError(req, fmt.Sprintf("Error calling zoneSearch: %s", err))
+        ServiceResponseError(req, fmt.Sprintf("Error calling ZoneSearch: %s", err))
 
 
         return

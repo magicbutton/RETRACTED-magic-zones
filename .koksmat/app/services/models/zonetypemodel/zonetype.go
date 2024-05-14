@@ -13,17 +13,17 @@ import (
     // 
 )
 
-func UnmarshalzoneType(data []byte) (zoneType, error) {
-	var r zoneType
+func UnmarshalZoneType(data []byte) (ZoneType, error) {
+	var r ZoneType
 	err := json.Unmarshal(data, &r)
 	return r, err
 }
 
-func (r *zoneType) Marshal() ([]byte, error) {
+func (r *ZoneType) Marshal() ([]byte, error) {
 	return json.Marshal(r)
 }
 
-type zoneType struct {
+type ZoneType struct {
     ID        int    `json:"id"`
     CreatedAt time.Time `json:"created_at"`
     UpdatedAt time.Time `json:"updated_at"`

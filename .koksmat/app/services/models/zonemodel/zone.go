@@ -13,17 +13,17 @@ import (
     // "github.com/magicbutton/magic-zones/database/databasetypes"
 )
 
-func Unmarshalzone(data []byte) (zone, error) {
-	var r zone
+func UnmarshalZone(data []byte) (Zone, error) {
+	var r Zone
 	err := json.Unmarshal(data, &r)
 	return r, err
 }
 
-func (r *zone) Marshal() ([]byte, error) {
+func (r *Zone) Marshal() ([]byte, error) {
 	return json.Marshal(r)
 }
 
-type zone struct {
+type Zone struct {
     ID        int    `json:"id"`
     CreatedAt time.Time `json:"created_at"`
     UpdatedAt time.Time `json:"updated_at"`

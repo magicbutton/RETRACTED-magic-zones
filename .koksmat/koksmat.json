@@ -6,8 +6,8 @@
     "major": 0
   },
   "appname": "magic-zones",
-  "dnsprod": "devices.intra.nexigroup.com",
-  "dnstest": "devices-test.intra.nexigroup.com",
+  "dnsprod": "magic.intra.nexigroup.com",
+  "dnstest": "magic-test.intra.nexigroup.com",
   "imagename": "ghcr.io/magicbutton/magic-zones",
   "port": 4343
 }

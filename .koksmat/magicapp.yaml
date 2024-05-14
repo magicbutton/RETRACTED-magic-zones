@@ -86,6 +86,44 @@ entities:
       - name: unique_jobtype_id
         type: string
         required: true
+      - name: zone
+        type: array
+        entity: *zone
+        required: false
+      - name: arg0
+        type: string
+        required: false
+      - name: arg1
+        type: string
+        required: false
+      - name: arg2
+        type: string
+        required: false
+      - name: arg3
+        type: string
+        required: false
+      - name: arg4
+        type: string
+        required: false
+      - name: arg5
+        type: string
+        required: false
+      - name: arg6
+        type: string
+        required: false
+      - name: arg7
+        type: string
+        required: false
+      - name: arg8
+        type: string
+        required: false
+      - name: arg9
+        type: string
+        required: false
+      - name: bodytemplate
+        type: string
+        required: false
+
   job: &job
     name: job
     description: job
@@ -185,7 +223,7 @@ services:
     entity:
       type: record
       model: zonetype
-      objectname: zoneType
+      objectname: ZoneType
       entity: *zonetype
     methods: *itemMethods
 
@@ -194,6 +232,24 @@ services:
     entity:
       type: record
       model: zone
-      objectname: zone
+      objectname: Zone
       entity: *zone
+    methods: *itemMethods
+
+  - name: jobtype
+    description: Manage job types
+    entity:
+      type: record
+      model: jobtype
+      objectname: JobType
+      entity: *jobtype
+    methods: *itemMethods
+
+  - name: job
+    description: Manage jobs
+    entity:
+      type: record
+      model: job
+      objectname: Job
+      entity: *job
     methods: *itemMethods

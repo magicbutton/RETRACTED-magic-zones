@@ -16,8 +16,8 @@ import (
 )
 
 
-func MapzoneOutgoing(db database.zone) zonemodel.zone {
-    return zonemodel.zone{
+func MapZoneOutgoing(db database.Zone) zonemodel.Zone {
+    return zonemodel.Zone{
         ID:        db.ID,
         CreatedAt: db.CreatedAt,
         UpdatedAt: db.UpdatedAt,
@@ -33,8 +33,8 @@ func MapzoneOutgoing(db database.zone) zonemodel.zone {
     }
 }
 
-func MapzoneIncoming(in zonemodel.zone) database.zone {
-    return database.zone{
+func MapZoneIncoming(in zonemodel.Zone) database.Zone {
+    return database.Zone{
         ID:        in.ID,
         CreatedAt: in.CreatedAt,
         UpdatedAt: in.UpdatedAt,

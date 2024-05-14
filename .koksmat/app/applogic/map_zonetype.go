@@ -16,8 +16,8 @@ import (
 )
 
 
-func MapzoneTypeOutgoing(db database.zoneType) zonetypemodel.zoneType {
-    return zonetypemodel.zoneType{
+func MapZoneTypeOutgoing(db database.ZoneType) zonetypemodel.ZoneType {
+    return zonetypemodel.ZoneType{
         ID:        db.ID,
         CreatedAt: db.CreatedAt,
         UpdatedAt: db.UpdatedAt,
@@ -28,8 +28,8 @@ func MapzoneTypeOutgoing(db database.zoneType) zonetypemodel.zoneType {
     }
 }
 
-func MapzoneTypeIncoming(in zonetypemodel.zoneType) database.zoneType {
-    return database.zoneType{
+func MapZoneTypeIncoming(in zonetypemodel.ZoneType) database.ZoneType {
+    return database.ZoneType{
         ID:        in.ID,
         CreatedAt: in.CreatedAt,
         UpdatedAt: in.UpdatedAt,

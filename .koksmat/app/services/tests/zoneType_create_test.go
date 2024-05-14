@@ -14,11 +14,11 @@ keep: false
         "github.com/stretchr/testify/assert"
     )
     
-    func TestzoneTypecreate(t *testing.T) {
+    func TestZoneTypecreate(t *testing.T) {
                                 // transformer v1
-            object := zonetypemodel.zoneType{}
+            object := zonetypemodel.ZoneType{}
          
-            result,err := zonetype.zoneTypeCreate(object)
+            result,err := zonetype.ZoneTypeCreate(object)
             if err != nil {
                 t.Errorf("Error %s", err)
             }

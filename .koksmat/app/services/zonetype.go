@@ -18,7 +18,7 @@ import (
 	"github.com/nats-io/nats.go/micro"
 )
 
-func HandlezoneTypeRequests(req micro.Request) {
+func HandleZoneTypeRequests(req micro.Request) {
 
     rawRequest := string(req.Data())
 	if rawRequest == "ping" {
@@ -47,10 +47,10 @@ if (len(payload.Args) < 2) {
 
 
     
-    result,err := zonetype.zoneTypeRead(StrToInt(payload.Args[1]))
+    result,err := zonetype.ZoneTypeRead(StrToInt(payload.Args[1]))
     if (err != nil) {
         log.Println("Error", err)
-        ServiceResponseError(req, fmt.Sprintf("Error calling zoneTypeRead: %s", err))
+        ServiceResponseError(req, fmt.Sprintf("Error calling ZoneTypeRead: %s", err))
 
 
         return
@@ -68,7 +68,7 @@ if (len(payload.Args) < 2) {
 
 
                 // transformer v1
-            object := zonetypemodel.zoneType{}
+            object := zonetypemodel.ZoneType{}
             body := ""
 
             json.Unmarshal([]byte(payload.Args[1]), &body)
@@ -80,10 +80,10 @@ if (len(payload.Args) < 2) {
                 return
             }
                      
-    result,err := zonetype.zoneTypeCreate(object)
+    result,err := zonetype.ZoneTypeCreate(object)
     if (err != nil) {
         log.Println("Error", err)
-        ServiceResponseError(req, fmt.Sprintf("Error calling zoneTypeCreate: %s", err))
+        ServiceResponseError(req, fmt.Sprintf("Error calling ZoneTypeCreate: %s", err))
 
 
         return
@@ -101,7 +101,7 @@ if (len(payload.Args) < 2) {
 
 
                 // transformer v1
-            object := zonetypemodel.zoneType{}
+            object := zonetypemodel.ZoneType{}
             body := ""
 
             json.Unmarshal([]byte(payload.Args[1]), &body)
@@ -113,10 +113,10 @@ if (len(payload.Args) < 2) {
                 return
             }
                      
-    result,err := zonetype.zoneTypeUpdate(object)
+    result,err := zonetype.ZoneTypeUpdate(object)
     if (err != nil) {
         log.Println("Error", err)
-        ServiceResponseError(req, fmt.Sprintf("Error calling zoneTypeUpdate: %s", err))
+        ServiceResponseError(req, fmt.Sprintf("Error calling ZoneTypeUpdate: %s", err))
 
 
         return
@@ -133,10 +133,10 @@ if (len(payload.Args) < 2) {
 }
 
 
-            err :=  zonetype.zoneTypeDelete(StrToInt(payload.Args[1]))
+            err :=  zonetype.ZoneTypeDelete(StrToInt(payload.Args[1]))
             if (err != nil) {
                 log.Println("Error", err)
-                ServiceResponseError(req, fmt.Sprintf("Error calling zoneTypeDelete: %s", err))
+                ServiceResponseError(req, fmt.Sprintf("Error calling ZoneTypeDelete: %s", err))
 
 
                 return
@@ -153,10 +153,10 @@ if (len(payload.Args) < 2) {
 
 
     
-    result,err := zonetype.zoneTypeSearch(payload.Args[1])
+    result,err := zonetype.ZoneTypeSearch(payload.Args[1])
     if (err != nil) {
         log.Println("Error", err)
-        ServiceResponseError(req, fmt.Sprintf("Error calling zoneTypeSearch: %s", err))
+        ServiceResponseError(req, fmt.Sprintf("Error calling ZoneTypeSearch: %s", err))
 
 
         return

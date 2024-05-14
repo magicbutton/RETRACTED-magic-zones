@@ -1,29 +1,25 @@
-/* 
+/*
 File have been automatically created. To prevent the file from getting overwritten
-set the Front Matter property ´keep´ to ´true´ syntax for the code snippet
+set the Front Matter property ´´keep´´ to ´´true´´ syntax for the code snippet
 ---
 keep: false
 ---
 */
-//generator:  noma3
+//generator:  noma3.update.v2
 package zonetype
-// noma2    
+
 import (
-	"log"
-    "errors"
+    "log"
+
+    "github.com/magicbutton/magic-zones/applogic"
+    "github.com/magicbutton/magic-zones/database"
     "github.com/magicbutton/magic-zones/services/models/zonetypemodel"
-    )
 
+)
 
-func zoneTypeUpdate(item zonetypemodel.zoneType ) (*zonetypemodel.zoneType,error) {
-log.Println("Calling zoneTypeUpdate")
-    
-    
-    
-    return nil,errors.New("Not implemented")
+func ZoneTypeUpdate(item zonetypemodel.ZoneType) (*zonetypemodel.ZoneType, error) {
+    log.Println("Calling ZoneTypeupdate")
 
-
-
+    return applogic.Update[database.ZoneType, zonetypemodel.ZoneType](item.ID,item, applogic.MapZoneTypeIncoming, applogic.MapZoneTypeOutgoing)
 
 }
-    

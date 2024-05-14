@@ -14,7 +14,7 @@ import (
 	"github.com/uptrace/bun"
 )
 
-type zone struct {
+type Zone struct {
 	bun.BaseModel `bun:"table:zone,alias:zone"`
 
 	ID             int     `bun:"id,pk,autoincrement"`

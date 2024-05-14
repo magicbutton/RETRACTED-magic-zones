@@ -11,11 +11,8 @@ package app
 // noma2
 import (
 	"context"
-	"fmt"
-	"log"
+	"errors"
 
-	"github.com/magicbutton/magic-zones/services/endpoints/person"
-	"github.com/magicbutton/magic-zones/services/models"
 	"github.com/magicbutton/magic-zones/utils"
 	"github.com/uptrace/bun"
 )
@@ -39,30 +36,8 @@ func GetCount(sql string) int {
 	return count[0].Count
 }
 
-func GlobalDashboard(email string) (*models.Dashboard, error) {
-	var person_id int = -1
-	var numberOfAppsOwned int = 0
-	var numberOfSurveyResponses int = 0
-	personSearchResult, err := person.PersonSearch(("%email:" + email + "%"))
-	if err == nil {
-		if personSearchResult.TotalItems > 0 {
-			person_id = personSearchResult.Items[0].ID
-			numberOfAppsOwned = GetCount(fmt.Sprintf("SELECT COUNT(*) as count FROM public.application  where owner_id = %d ", person_id))
-			numberOfSurveyResponses = GetCount(fmt.Sprintf("SELECT COUNT(*) as count FROM public.surveyresponse  where respondent_id = %d AND responsedate is null", person_id))
-		}
-	}
+func GlobalDashboard(args []string) (*interface{}, error) {
 
-	log.Println("Calling Dashboard with person_id: ", person_id, " email: ", email)
-
-	dashboard := models.Dashboard{
-		PersonId:                person_id,
-		NumberOfApplications:    GetCount("SELECT count(*) as count FROM public.application"),
-		NumberOfSurveys:         GetCount("SELECT count(*) as count FROM public.survey"),
-		NumberOfOwners:          GetCount("SELECT count(*) as count FROM public.person"),
-		NumberOfAppsYouOwn:      numberOfAppsOwned,
-		NumberOfSurveyResponses: numberOfSurveyResponses,
-	}
-
-	return &dashboard, nil
+	return nil, errors.New("Not implemented")
 
 }

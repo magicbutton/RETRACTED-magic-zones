@@ -17,9 +17,9 @@ import (
     . "github.com/magicbutton/magic-zones/utils"
 )
 
-func zoneTypeSearch(query string) (*Page[zonetypemodel.zoneType], error) {
-    log.Println("Calling zoneTypesearch")
+func ZoneTypeSearch(query string) (*Page[zonetypemodel.ZoneType], error) {
+    log.Println("Calling ZoneTypesearch")
 
-    return applogic.Search[database.zoneType, zonetypemodel.zoneType]("name", query, applogic.MapzoneTypeOutgoing)
+    return applogic.Search[database.ZoneType, zonetypemodel.ZoneType]("name", query, applogic.MapZoneTypeOutgoing)
 
 }

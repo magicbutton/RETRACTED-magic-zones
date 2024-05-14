@@ -1,29 +1,25 @@
-/* 
+/*
 File have been automatically created. To prevent the file from getting overwritten
-set the Front Matter property ´keep´ to ´true´ syntax for the code snippet
+set the Front Matter property ´´keep´´ to ´´true´´ syntax for the code snippet
 ---
 keep: false
 ---
 */
-//generator:  noma3
+//generator:  noma3.read.v2
 package zone
-// noma2    
+
 import (
-	"log"
-    "errors"
+    "log"
+
+    "github.com/magicbutton/magic-zones/applogic"
+    "github.com/magicbutton/magic-zones/database"
     "github.com/magicbutton/magic-zones/services/models/zonemodel"
-    )
 
+)
 
-func zoneRead(id int ) (*zonemodel.zone,error) {
-log.Println("Calling zoneRead")
-    
-    
-    
-    return nil,errors.New("Not implemented")
+func ZoneRead(id int) (*zonemodel.Zone, error) {
+    log.Println("Calling Zoneread")
 
-
-
+    return applogic.Read[database.Zone, zonemodel.Zone](id, applogic.MapZoneOutgoing)
 
 }
-    
