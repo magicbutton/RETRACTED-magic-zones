@@ -10,14 +10,15 @@
             
             import (
                 "log"
-            
+                "strconv"
                 "github.com/magicbutton/magic-zones/applogic"
                 "github.com/magicbutton/magic-zones/database"
                 "github.com/magicbutton/magic-zones/services/models/jobmodel"
             
             )
             
-            func JobDelete(id int) ( error) {
+            func JobDelete(arg0 string) ( error) {
+                id,_ := strconv.Atoi(arg0)
                 log.Println("Calling Jobdelete")
             
                 return applogic.Delete[database.Job, jobmodel.Job](id)

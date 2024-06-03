@@ -20,9 +20,10 @@ func MapJobTypeOutgoing(db database.JobType) jobtypemodel.JobType {
     return jobtypemodel.JobType{
         ID:        db.ID,
         CreatedAt: db.CreatedAt,
+        CreatedBy: db.CreatedBy,
         UpdatedAt: db.UpdatedAt,
-                Tenant : db.Tenant,
-        Name : db.Name,
+        UpdatedBy: db.UpdatedBy,
+                Name : db.Name,
         Description : db.Description,
         Unique_Jobtype_Id : db.Unique_Jobtype_Id,
         Arg0 : db.Arg0,
@@ -44,9 +45,10 @@ func MapJobTypeIncoming(in jobtypemodel.JobType) database.JobType {
     return database.JobType{
         ID:        in.ID,
         CreatedAt: in.CreatedAt,
+        CreatedBy: in.CreatedBy,
         UpdatedAt: in.UpdatedAt,
-                Tenant : in.Tenant,
-        Name : in.Name,
+        UpdatedBy: in.UpdatedBy,
+                Name : in.Name,
         Description : in.Description,
         Unique_Jobtype_Id : in.Unique_Jobtype_Id,
         Arg0 : in.Arg0,
@@ -60,6 +62,7 @@ func MapJobTypeIncoming(in jobtypemodel.JobType) database.JobType {
         Arg8 : in.Arg8,
         Arg9 : in.Arg9,
         Bodytemplate : in.Bodytemplate,
+        Searchindex : in.Name,
 
     }
 }

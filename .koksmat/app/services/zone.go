@@ -47,7 +47,7 @@ if (len(payload.Args) < 2) {
 
 
     
-    result,err := zone.ZoneRead(StrToInt(payload.Args[1]))
+    result,err := zone.ZoneRead(payload.Args[1])
     if (err != nil) {
         log.Println("Error", err)
         ServiceResponseError(req, fmt.Sprintf("Error calling ZoneRead: %s", err))
@@ -133,7 +133,7 @@ if (len(payload.Args) < 2) {
 }
 
 
-            err :=  zone.ZoneDelete(StrToInt(payload.Args[1]))
+            err :=  zone.ZoneDelete(payload.Args[1])
             if (err != nil) {
                 log.Println("Error", err)
                 ServiceResponseError(req, fmt.Sprintf("Error calling ZoneDelete: %s", err))

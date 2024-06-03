@@ -10,14 +10,15 @@
             
             import (
                 "log"
-            
+                "strconv"
                 "github.com/magicbutton/magic-zones/applogic"
                 "github.com/magicbutton/magic-zones/database"
                 "github.com/magicbutton/magic-zones/services/models/zonetypemodel"
             
             )
             
-            func ZoneTypeDelete(id int) ( error) {
+            func ZoneTypeDelete(arg0 string) ( error) {
+                id,_ := strconv.Atoi(arg0)
                 log.Println("Calling ZoneTypedelete")
             
                 return applogic.Delete[database.ZoneType, zonetypemodel.ZoneType](id)

@@ -10,14 +10,15 @@ package zonetype
 
 import (
     "log"
-
+    "strconv"
     "github.com/magicbutton/magic-zones/applogic"
     "github.com/magicbutton/magic-zones/database"
     "github.com/magicbutton/magic-zones/services/models/zonetypemodel"
 
 )
 
-func ZoneTypeRead(id int) (*zonetypemodel.ZoneType, error) {
+func ZoneTypeRead(arg0 string) (*zonetypemodel.ZoneType, error) {
+    id,_ := strconv.Atoi(arg0)
     log.Println("Calling ZoneTyperead")
 
     return applogic.Read[database.ZoneType, zonetypemodel.ZoneType](id, applogic.MapZoneTypeOutgoing)

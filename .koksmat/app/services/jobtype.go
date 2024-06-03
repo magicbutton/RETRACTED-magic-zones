@@ -47,7 +47,7 @@ if (len(payload.Args) < 2) {
 
 
     
-    result,err := jobtype.JobTypeRead(StrToInt(payload.Args[1]))
+    result,err := jobtype.JobTypeRead(payload.Args[1])
     if (err != nil) {
         log.Println("Error", err)
         ServiceResponseError(req, fmt.Sprintf("Error calling JobTypeRead: %s", err))
@@ -133,7 +133,7 @@ if (len(payload.Args) < 2) {
 }
 
 
-            err :=  jobtype.JobTypeDelete(StrToInt(payload.Args[1]))
+            err :=  jobtype.JobTypeDelete(payload.Args[1])
             if (err != nil) {
                 log.Println("Error", err)
                 ServiceResponseError(req, fmt.Sprintf("Error calling JobTypeDelete: %s", err))

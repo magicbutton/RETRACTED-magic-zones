@@ -10,14 +10,15 @@ package jobtype
 
 import (
     "log"
-
+    "strconv"
     "github.com/magicbutton/magic-zones/applogic"
     "github.com/magicbutton/magic-zones/database"
     "github.com/magicbutton/magic-zones/services/models/jobtypemodel"
 
 )
 
-func JobTypeRead(id int) (*jobtypemodel.JobType, error) {
+func JobTypeRead(arg0 string) (*jobtypemodel.JobType, error) {
+    id,_ := strconv.Atoi(arg0)
     log.Println("Calling JobTyperead")
 
     return applogic.Read[database.JobType, jobtypemodel.JobType](id, applogic.MapJobTypeOutgoing)

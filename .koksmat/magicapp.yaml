@@ -3,8 +3,130 @@ type: magicservice
 namezone: apps
 organisation: magicbutton
 magicappversion: v0.0.1
-description: A simple app to manage users, groups and memberships
+description: |
+  Central application for managing the Magic Zones: access, jobs, deployments etc.
+react:
+  templates:
+    formfield: &formfield
+      markup: |
+        <FormField
+         control={form.control}
+         name="##NAME##"
+         render={({ field }) => (
+           <FormItem>
+             <FormLabel>##LABEL##</FormLabel>
+             <FormControl>
+               ##FORMCONTROL##
+             </FormControl>
+             <FormDescription>
+               ##DESCRIPTION##
+             </FormDescription>
+             <FormMessage />
+           </FormItem>
+         )}
+        />
+  components:
+    stringformfield: &StringFormField
+      name: formfield
+      template: *formfield
+      markup: |
+        <Input placeholder="##PLACEHOLDER##" {...field} />
 
+    numberformfield: &NumberFormField
+      name: formfield
+      template: *formfield
+
+      markup: |
+        <Input placeholder="##PLACEHOLDER##" {...field} />
+    intformfield: &IntFormField
+      name: formfield
+      template: *formfield
+
+      markup: |
+        <Input placeholder="##PLACEHOLDER##" {...field} />
+    datetimeformfield: &DateTimeFormField
+      name: formfield
+      template: *formfield
+
+      markup: |
+        <Input placeholder="##PLACEHOLDER##" {...field} />
+    booleanformfield: &BooleanFormField
+      name: formfield
+      template: *formfield
+      markup: |
+        <div>Boolean not implemented</div>
+      # markup: |
+      #   <Input placeholder="##PLACEHOLDER##" {...field} />
+    arrayformfield: &ArrayFormField
+      name: formfield
+      template: *formfield
+
+      markup: |
+        <Input placeholder="##PLACEHOLDER##" {...field} />
+    lookupformfield: &LookupFormField
+      name: formfield
+      template: *formfield
+
+      markup: |
+        <Input placeholder="##PLACEHOLDER##" {...field} />
+    referenceformfield: &ReferenceFormField
+      name: formfield
+      template: *formfield
+
+      markup: |
+        <Input placeholder="##PLACEHOLDER##" {...field} />
+
+    jsonformfield: &JSONFormField
+      name: formfield
+      template: *formfield
+
+      markup: |
+        <Input placeholder="##PLACEHOLDER##" {...field} />
+    viewitem: &ViewItem
+      name: viewitem
+      markup: |
+        export function ViewItem<T>(props: {caption:string, value:T}) {
+        const {caption, value} = props;
+        return (
+        <div>
+          <div className="font-bold">{caption}</h1>
+          <div >{value}</h1>
+        </div>
+        )
+        }
+    formitem: &EditItem
+      name: formitem
+      markup: |
+        export function EditItem<T>(props: { caption:string, FormField : FormFieldType<T>, value:T, onChange: (value:T) => void}) {
+        const {caption, value,ForField} = props;
+        return (
+        <div>
+          <div className="font-bold">{caption}</h1>
+          <div ><FormField<T> onChange={onChange} value={value} /></h1>
+        </div>
+        )
+        }
+defaults:
+  viewitem: *ViewItem
+  edititem: *EditItem
+  primitive:
+    json:
+      formfield: *JSONFormField
+
+    string:
+      formfield: *StringFormField
+    number:
+      formfield: *NumberFormField
+    datetime:
+      formfield: *DateTimeFormField
+    int:
+      formfield: *IntFormField
+    boolean:
+      formfield: *BooleanFormField
+    array:
+      formfield: *ArrayFormField
+    reference:
+      formfield: *LookupFormField
 baseattributes:
   urlrecord:
     &recordAttributesWithURL # Id + Created + Updated + CreatedBy + UpdatedBy are implicit
@@ -14,6 +136,14 @@ baseattributes:
     - name: name
       type: string
       required: true
+    - name: searchindex
+      type: string
+      displayname: Search Index
+      description: |
+        Search Index is used for concatenating all searchable fields in a single field making in easier to search
+      hidden: true
+      required: true
+
     - name: description
       type: string
       required: false
@@ -24,11 +154,22 @@ baseattributes:
     &recordAttributes # Id + Created + Updated + CreatedBy + UpdatedBy are implicit
     - name: tenant
       type: string
+      displayname: Tenant
+      hidden: true
+      required: true
+    - name: searchindex
+      type: string
+      displayname: Search Index
+      description: |
+        Search Index is used for concatenating all searchable fields in a single field making in easier to search
+      hidden: true
       required: true
     - name: name
       type: string
+      displayname: Name
       required: true
     - name: description
+      displayname: Description
       type: string
       required: false
 
@@ -156,6 +297,61 @@ entities:
       - name: notes
         type: string
         required: false
+  service: &service
+    name: service
+    description: service
+    baselineattributes: *recordAttributes
+    additionalattributes:
+      - name: unique_service_id
+        type: string
+        required: true
+      - name: service
+        type: string
+        required: true
+  key: &key
+    name: key
+    description: key
+    baselineattributes: *recordAttributes
+    additionalattributes:
+      - name: unique_key_id
+        type: string
+        required: true
+      - name: key
+        type: string
+        required: true
+  issuedtoken: &issuedtoken
+    name: issuedtoken
+    description: issuedtoken
+    baselineattributes: *recordAttributes
+    additionalattributes:
+      - name: issuedFor
+        description: |
+          The service which the token has been issued for
+        type: string
+        required: true
+      - name: issuedToUPN
+        type: string
+        required: true
+  package: &package
+    name: package
+    description: package
+    baselineattributes: *recordAttributes
+    additionalattributes:
+      - name: version
+        type: string
+        required: true
+      - name: url
+        type: string
+        required: true
+      - name: checksum
+        type: string
+        required: true
+      - name: status
+        type: string
+        required: true
+      - name: notes
+        type: string
+        required: false
 
 models:
   itemMethods: &itemMethods
@@ -252,4 +448,22 @@ services:
       model: job
       objectname: Job
       entity: *job
+    methods: *itemMethods
+
+  - name: service
+    description: Manage services
+    entity:
+      type: record
+      model: service
+      objectname: Service
+      entity: *service
+    methods: *itemMethods
+
+  - name: key
+    description: Manage keys
+    entity:
+      type: record
+      model: key
+      objectname: Key
+      entity: *key
     methods: *itemMethods

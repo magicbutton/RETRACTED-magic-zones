@@ -10,14 +10,15 @@ package person
 
 import (
     "log"
-
+    "strconv"
     "github.com/magicbutton/magic-zones/applogic"
     "github.com/magicbutton/magic-zones/database"
     "github.com/magicbutton/magic-zones/services/models/personmodel"
 
 )
 
-func PersonRead(id int) (*personmodel.Person, error) {
+func PersonRead(arg0 string) (*personmodel.Person, error) {
+    id,_ := strconv.Atoi(arg0)
     log.Println("Calling Personread")
 
     return applogic.Read[database.Person, personmodel.Person](id, applogic.MapPersonOutgoing)

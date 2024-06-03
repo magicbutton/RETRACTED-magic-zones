@@ -20,9 +20,10 @@ func MapZoneOutgoing(db database.Zone) zonemodel.Zone {
     return zonemodel.Zone{
         ID:        db.ID,
         CreatedAt: db.CreatedAt,
+        CreatedBy: db.CreatedBy,
         UpdatedAt: db.UpdatedAt,
-                Tenant : db.Tenant,
-        Name : db.Name,
+        UpdatedBy: db.UpdatedBy,
+                Name : db.Name,
         Description : db.Description,
         Unique_Zone_Id : db.Unique_Zone_Id,
                 Zonetype_id : db.Zonetype_id,
@@ -37,15 +38,17 @@ func MapZoneIncoming(in zonemodel.Zone) database.Zone {
     return database.Zone{
         ID:        in.ID,
         CreatedAt: in.CreatedAt,
+        CreatedBy: in.CreatedBy,
         UpdatedAt: in.UpdatedAt,
-                Tenant : in.Tenant,
-        Name : in.Name,
+        UpdatedBy: in.UpdatedBy,
+                Name : in.Name,
         Description : in.Description,
         Unique_Zone_Id : in.Unique_Zone_Id,
                 Zonetype_id : in.Zonetype_id,
                 Primaryowner_id : in.Primaryowner_id,
                 Secondaryowner_id : in.Secondaryowner_id,
                 Accountable_id : in.Accountable_id,
+        Searchindex : in.Name,
 
     }
 }

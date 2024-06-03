@@ -20,6 +20,6 @@ import (
 func JobSearch(query string) (*Page[jobmodel.Job], error) {
     log.Println("Calling Jobsearch")
 
-    return applogic.Search[database.Job, jobmodel.Job]("name", query, applogic.MapJobOutgoing)
+    return applogic.Search[database.Job, jobmodel.Job]("searchindex", query, applogic.MapJobOutgoing)
 
 }

@@ -11,7 +11,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Activity,
@@ -148,11 +148,34 @@ FROM public.jobtype
   );
 }
 
-export function Execute(props: { cmd: string; args: string[] }) {
+export function Execute<T>(props: {
+  cmd: string;
+  args: string[];
+  onError?: (error: any) => void;
+  onSuccess?: (data: T) => void;
+}) {
   const { cmd, args } = props;
 
-  const service = useService(cmd, args, "", 600, "x");
-  return <ShowJson object={{ cmd, args, service }} />;
+  const service = useService<T>(cmd, args, "", 600, "x");
+  useEffect(() => {
+    if (service.error) {
+      if (props.onError) {
+        props.onError(service.error);
+      }
+    }
+    if (service.data) {
+      if (props.onSuccess) {
+        props.onSuccess(service.data);
+      }
+    }
+  }, [service]);
+  if (service.isLoading) {
+    return <div>Running</div>;
+  }
+  if (service.error && !props.onError) {
+    return <div className="text-red-500">{service.error} </div>;
+  }
+  return null;
 }
 export function JobCard(props: JobCardProps) {
   const {
@@ -165,6 +188,12 @@ export function JobCard(props: JobCardProps) {
   } = props;
   const [showExecute, setshowExecute] = useState(false);
   const [executing, setexecuting] = useState(false);
+  const [completedOK, setcompletedOK] = useState(false);
+  const [result, setresult] = useState("");
+  useEffect(() => {
+    setcompletedOK(false);
+  }, []);
+
   const executionControl = (on: boolean) => {
     if (!on) {
       setexecuting(false);
@@ -237,28 +266,47 @@ export function JobCard(props: JobCardProps) {
               {executing && <div className="progress-bar-value"></div>}
             </div>
           </SheetHeader>
-          <div className="mt-5 space-x-2">
-            <Button
-              disabled={executing}
-              variant="default"
-              onClick={() => setexecuting(true)}
-            >
-              Publish
-            </Button>
-            <Button
-              variant="secondary"
-              onClick={() => {
-                executionControl(false);
-              }}
-            >
-              Cancel
-            </Button>
-            {executing && (
-              <div className="flex items-center space-x-2">
-                <Execute cmd={props.serviceName} args={props.args} />
-              </div>
-            )}
-          </div>
+          {!completedOK && (
+            <div className="mt-5 space-x-2">
+              <Button
+                disabled={executing}
+                variant="default"
+                onClick={() => setexecuting(true)}
+              >
+                Publish
+              </Button>
+              <Button
+                variant="secondary"
+                onClick={() => {
+                  executionControl(false);
+                }}
+              >
+                Cancel
+              </Button>
+              {executing && (
+                <div className="flex items-center space-x-2">
+                  <Execute<any>
+                    cmd={props.serviceName}
+                    args={props.args}
+                    onSuccess={(data) => {
+                      setcompletedOK(true);
+                      setresult("Completed OK");
+                      setexecuting(false);
+                      console.log(data);
+                      //executionControl(false);
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          )}
+          {completedOK && (
+            <div className="mt-5 space-x-2">
+              <Button variant="default" onClick={() => executionControl(false)}>
+                Close
+              </Button>
+            </div>
+          )}
         </SheetContent>
       </Sheet>
     </div>

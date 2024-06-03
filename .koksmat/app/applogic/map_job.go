@@ -20,9 +20,10 @@ func MapJobOutgoing(db database.Job) jobmodel.Job {
     return jobmodel.Job{
         ID:        db.ID,
         CreatedAt: db.CreatedAt,
+        CreatedBy: db.CreatedBy,
         UpdatedAt: db.UpdatedAt,
-                Tenant : db.Tenant,
-        Name : db.Name,
+        UpdatedBy: db.UpdatedBy,
+                Name : db.Name,
         Description : db.Description,
         Unique_Job_Id : db.Unique_Job_Id,
                 Jobtype_id : db.Jobtype_id,
@@ -38,9 +39,10 @@ func MapJobIncoming(in jobmodel.Job) database.Job {
     return database.Job{
         ID:        in.ID,
         CreatedAt: in.CreatedAt,
+        CreatedBy: in.CreatedBy,
         UpdatedAt: in.UpdatedAt,
-                Tenant : in.Tenant,
-        Name : in.Name,
+        UpdatedBy: in.UpdatedBy,
+                Name : in.Name,
         Description : in.Description,
         Unique_Job_Id : in.Unique_Job_Id,
                 Jobtype_id : in.Jobtype_id,
@@ -48,6 +50,7 @@ func MapJobIncoming(in jobmodel.Job) database.Job {
                 Person_id : in.Person_id,
         Status : in.Status,
         Notes : in.Notes,
+        Searchindex : in.Name,
 
     }
 }

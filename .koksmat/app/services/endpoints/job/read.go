@@ -10,14 +10,15 @@ package job
 
 import (
     "log"
-
+    "strconv"
     "github.com/magicbutton/magic-zones/applogic"
     "github.com/magicbutton/magic-zones/database"
     "github.com/magicbutton/magic-zones/services/models/jobmodel"
 
 )
 
-func JobRead(id int) (*jobmodel.Job, error) {
+func JobRead(arg0 string) (*jobmodel.Job, error) {
+    id,_ := strconv.Atoi(arg0)
     log.Println("Calling Jobread")
 
     return applogic.Read[database.Job, jobmodel.Job](id, applogic.MapJobOutgoing)

@@ -20,6 +20,6 @@ import (
 func ZoneTypeSearch(query string) (*Page[zonetypemodel.ZoneType], error) {
     log.Println("Calling ZoneTypesearch")
 
-    return applogic.Search[database.ZoneType, zonetypemodel.ZoneType]("name", query, applogic.MapZoneTypeOutgoing)
+    return applogic.Search[database.ZoneType, zonetypemodel.ZoneType]("searchindex", query, applogic.MapZoneTypeOutgoing)
 
 }

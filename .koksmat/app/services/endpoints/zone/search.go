@@ -20,6 +20,6 @@ import (
 func ZoneSearch(query string) (*Page[zonemodel.Zone], error) {
     log.Println("Calling Zonesearch")
 
-    return applogic.Search[database.Zone, zonemodel.Zone]("name", query, applogic.MapZoneOutgoing)
+    return applogic.Search[database.Zone, zonemodel.Zone]("searchindex", query, applogic.MapZoneOutgoing)
 
 }
